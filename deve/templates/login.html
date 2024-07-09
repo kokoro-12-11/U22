@@ -25,13 +25,13 @@
 
             <div class="login_form">
 
-                <form action="">
+                <form id="login_form" action="/login" method="POST">
                     <div class="login_username_container">
                         <div class="login_username">
                             <p>Username</p>
                         </div>
                         <div class="login_username_input">
-                            <input type="text" placeholder="enter your username">
+                            <input type="text" id="username" name="username" placeholder="enter your username" required>
                         </div>
                     </div>
 
@@ -40,7 +40,7 @@
                             <p>Password</p>
                         </div>
                         <div class="login_password_input">
-                            <input type="text" placeholder="enter your password">
+                            <input type="text" id="password" name="password" placeholder="enter your password" required>
                         </div>
                     </div>
 
@@ -54,5 +54,7 @@
         </div>
         
     </div>
+
+    <script src="../static/js/common.js"></script>
 </body>
 </html>

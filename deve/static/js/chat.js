@@ -1,4 +1,3 @@
-// ブラウザがSpeechRecognition APIをサポートしているか確認
 if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
     // SpeechRecognitionオブジェクトを作成
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -13,6 +12,8 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
     const startBtn = document.getElementById('start-btn');
     const stopBtn = document.getElementById('stop-btn');
     const resultDiv = document.getElementById('result-div');
+    const textInput = document.getElementById('text-input');
+    const sendBtn = document.getElementById('send-btn');
 
     let finalTranscript = ''; // 最終認識結果を格納する変数
 
@@ -45,6 +46,17 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
         recognition.stop();
     };
 
+    // 「送信」ボタンのクリックイベントハンドラ
+    sendBtn.onclick = () => {
+        const textValue = textInput.value;
+        if (textValue) {
+            sendToServer(textValue);
+            finalTranscript += textValue; // テキスト入力を最終結果に追加
+            resultDiv.innerHTML = finalTranscript;
+            textInput.value = ''; // テキスト入力フィールドをクリア
+        }
+    };
+
     // サーバーにデータを送信する関数
     function sendToServer(data) {
         fetch('/api/recognition', {
@@ -71,4 +83,3 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
     // SpeechRecognition APIがサポートされていない場合のエラーメッセージ
     console.error("SpeechRecognition is not supported in this browser.");
 }
-

@@ -4,15 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/reset.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/common.js') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/index.js') }}"> -->
     <title>index</title>
 </head>
 <body>
     <main>
         <div id="wrap">
 
-            CSS、JSへのパス変更して！！
+            <div class="Container">
+
+
+                <div class="ChildLeft">
+                  <figure>
+                    <img src="../static/image/rogo.png" alt="ロゴ">
+                  </figure>
+                </div>
+          
+          
+                <div class="ChildRight">
+          
+                 
+                  <header>
+                    <div class="Header">
+                      <div class="HeaderStatus">
+                        <h1>オフライン</h1>
+                      </div>
+                      <div class="HeaderImage">
+                        <figure>
+                          <img src="../static/image/icon.png">
+                        </figure>
+                      </div>
+                    </div>
+                  </header>
+          
+          
+                  <h1 class="welcome">{システム名}へようこそ</h1>
+          
+          
+                  <div class="Select">
+                    <div class="write" style="width: 21%; aspect-ratio: 1;"><p>Let's<br>write out the<br>programming<br>you want to<br>write!</p></div>
+                    <div class="Language" style="width: 21%; aspect-ratio: 1;"><a href="chat_K.html"><img src="../static/image/html1.png"></a></div>
+                    <div class="Language" style="width: 21%; aspect-ratio: 1;"><a href="chat_K.html"><img src="../static/image/css1.png"></a></div>
+                    <div class="Language" style="width: 21%; aspect-ratio: 1;"><a href="chat_K.html"><img src="../static/image/js1.png"></a></div>
+                    <div class="Language" style="width: 21%; aspect-ratio: 1;"><a href="chat_K.html"><img src="../static/image/python1.png"></a></div>
+                    <div class="Language" style="width: 21%; aspect-ratio: 1;"></div>
+                  </div>
+          
+          
+                </div>
+              
+          
+              </div>
 
         </div>
     </main>

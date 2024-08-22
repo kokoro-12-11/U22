@@ -22,8 +22,8 @@ Deeple_Key = "b82c6d36-4623-4cdd-99cf-c1f075144a57:fx"
 # db_config ={
 #     'host':'localhost',
 #     'user':'root',
-#     'password':'######',
-#     'database':'######',
+#     'password':'p@ssw0rd',
+#     'database':'sk',
 # }
 # def get_db_connection():
 #     try:
@@ -52,19 +52,19 @@ def login_f():
     return render_template("login_forgot.html")
 # チャットページ
 @app.route("/chat2")
-def chat():
+def chat2():
     return render_template("chat2.html")
 # チャットページ
 @app.route("/chat3")
-def chat():
+def chat3():
     return render_template("chat3.html")
 # チャットページ
 @app.route("/chat4")
-def chat():
+def chat4():
     return render_template("chat4.html")
 # チャットページ
 @app.route("/chat5")
-def chat():
+def chat5():
     return render_template("chat5.html")
 
 
@@ -77,7 +77,7 @@ def chat():
 
 #         connection = mysql.connector.connect(**db_config)
 #         cursor = connection.cursor(dictionary=True, buffered=True)
-#         cursor.execute("SELECT * FROM t_users WHERE user_name = %s", (username,))
+#         cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
 #         user = cursor.fetchone()
 #         cursor.close()
 #         connection.close()
@@ -103,7 +103,7 @@ def chat():
 
 #         connection = mysql.connector.connect(**db_config)
 #         cursor = connection.cursor()
-#         cursor.execute("INSERT INTO t_users (user_name, password) VALUES (%s, %s)", (username, hashed_password))
+#         cursor.execute("INSERT INTO user (username, password) VALUES (%s, %s)", (username, hashed_password))
 #         connection.commit()
 #         cursor.close()
 #         connection.close()
@@ -155,6 +155,7 @@ def recognition():
     transcript = data.get('transcript')
     lang = data.get('page')
     # lang=1
+    print(transcript)
     print(lang)
     # 言語選択をhtmlにつくる　今は固定で日本語
     # chat.javaの中をいじる必要あり
@@ -162,7 +163,7 @@ def recognition():
     Lan="ja-JP"
     
     if Lan == "ja-JP":
-        lan_to = "EN"
+        lan_to = "JA"
         AI = "JA"
     elif Lan == "en-US":
         lan_to = "EN"
@@ -184,11 +185,11 @@ def recognition():
     else :
         print("存在しないカテゴリーです")
 
-    print(ai_response)
+    # print(ai_response)
     # AI応答の再翻訳
     
     translated_ai_response = translate_text(ai_response, AI)
-    print(translated_ai_response)
+    # print(translated_ai_response)
     
     response = {
         'original_text': transcript,

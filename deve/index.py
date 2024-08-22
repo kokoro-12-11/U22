@@ -113,7 +113,7 @@ def recognition():
     data = request.json
     transcript = data.get('transcript')
     lang = data.get('page')
-    lang=1
+    # lang=1
     print(lang)
     # 言語選択をhtmlにつくる　今は固定で日本語
     # chat.javaの中をいじる必要あり

@@ -22,8 +22,8 @@ Deeple_Key = "b82c6d36-4623-4cdd-99cf-c1f075144a57:fx"
 # db_config ={
 #     'host':'localhost',
 #     'user':'root',
-#     'password':'p@ssw0rd',
-#     'database':'sk',
+#     'password':'P@ssw0rd',
+#     'database':'2024sk',
 # }
 # def get_db_connection():
 #     try:
@@ -69,10 +69,10 @@ def chat5():
 
 
 # # ログイン機能
-# @app.route('/login', methods=['GET', 'POST'])
+# @app.route('/login',methods=['GET','POST'])
 # def login():
 #     if request.method == 'POST':
-#         username = request.form.get('name')
+#         username = request.form.get('username')
 #         password = request.form.get('password')
 
 #         connection = mysql.connector.connect(**db_config)
@@ -81,15 +81,14 @@ def chat5():
 #         user = cursor.fetchone()
 #         cursor.close()
 #         connection.close()
-
+        
 #         if user and check_password_hash(user['password'], password):
 #             session['username'] = username  # ユーザー名をセッションに保存
 #             return redirect("/")
 #         else:
-#             flash('ログイン失敗。', 'danger')
-#             return redirect("/login")
-#     return render_template('login.html')
-        
+#             flash('＊＊＊ログイン失敗。＊＊＊', 'danger')
+#             return redirect("/to_login")
+#     return render_template('login_forgot.html')
 
 
 
@@ -108,7 +107,6 @@ def chat5():
 #         cursor.close()
 #         connection.close()
 
-#         flash('会員登録が完了しました。', 'success')
 #         return redirect('/to_login')
 
 #     return render_template('membership.html')
@@ -116,7 +114,8 @@ def chat5():
 # トップ
 @app.route("/")
 def index():
-    return render_template("index.html")
+    username=session.get("username")
+    return render_template("index.html",username=username)
 
 
 # チャットページ

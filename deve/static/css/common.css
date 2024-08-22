@@ -17,6 +17,12 @@ body{
     border-radius: 15px;
     background-color: #DBE7F3;
 }
+#flash_item{
+    margin: 0 3%;
+    list-style: none;
+    color: rgb(255, 0, 0);
+    text-align: center;
+}
 .login_login{
     text-align: center;
     margin: 3% 0 10% 0;

@@ -14,14 +14,14 @@ document.getElementById('login_form').addEventListener('submit', function(event)
     }
 
     //バリデーション：ユーザーネームの長さ
-    if (username.length < 6) {
+    if (username.length < 1) {
         alert('ユーザーネームは6文字以上で入力してください。');
         event.prenventDefault();
         return;
     }
 
     //バリデーション：パスワードの長さ
-    if (password.length < 6) {
+    if (password.length < 1) {
         alert('パスワードは6文字以上で入力してください。');
         event.prenventDefault();
         return;

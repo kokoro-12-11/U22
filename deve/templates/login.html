@@ -17,15 +17,26 @@
 <body>
     <div id="wrap">
 
-        <div id="login_container">
+        <div id="login_container" >
 
             <div class="login_login">
                 <p>Login</p>
             </div>
 
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="flashes">
+                        {% for category, message in messages %}
+                            <li id="flash_item"class="{{ category }}" >{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
             <div class="login_form">
 
-                <form id="login_form" action="/login" method="POST">
+                <form id="login_form" action="/login" method="post">
                     <div class="login_username_container">
                         <div class="login_username">
                             <p>Username</p>

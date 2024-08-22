@@ -96,6 +96,9 @@ def translate_text(text, lan_to):
     )
     return result.json()["translations"][0]["text"]
 
+
+
+
 # AI関係
 def generate_ai_response(text):
     
@@ -105,10 +108,13 @@ def generate_ai_response(text):
     return response.text
 
 # 音声データ取得と返答
-@app.route('/api/recognition', methods=['POST'])
+@app.route('/api/recognition/', methods=['POST'])
 def recognition():
     data = request.json
     transcript = data.get('transcript')
+    lang = data.get('page')
+    lang=1
+    print(lang)
     # 言語選択をhtmlにつくる　今は固定で日本語
     # chat.javaの中をいじる必要あり
     # Lan = data.get('lang')
@@ -124,8 +130,19 @@ def recognition():
     # 入力音声翻訳
     translated_text = translate_text(transcript, lan_to)
     
-    # AI応答生成
-    ai_response = generate_ai_response(translated_text)
+    prompt = "Provide only the code."
+    if lang == "1":
+        # AI応答生成
+        ai_response = generate_ai_response("use html"+translated_text+prompt)
+    elif lang == "2":
+        ai_response = generate_ai_response("use css"+translated_text+prompt)
+    elif lang == "3":
+        ai_response = generate_ai_response("use javascript"+translated_text+prompt)
+    elif lang == "4":
+        ai_response = generate_ai_response("use python"+translated_text+prompt)
+    else :
+        print("存在しないカテゴリーです")
+
     print(ai_response)
     # AI応答の再翻訳
     

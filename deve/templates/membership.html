@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログインページ</title>
+    <title>会員登録</title>
     <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
     <link rel="stylesheet" type="text/css" href="../static/css/common.css">
 
@@ -20,11 +20,11 @@
         <div id="login_container" >
 
             <div class="login_login">
-                <p>Login</p>
+                <p>Sign up</p>
             </div>
 
             <!-- Flash messages -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
+            <!-- {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     <ul class="flashes">
                         {% for category, message in messages %}
@@ -32,17 +32,17 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
-            {% endwith %}
+            {% endwith %} -->
 
             <div class="login_form">
 
-                <form id="login_form" action="/to_login" method="post">
+                <form id="sign_up" action="/member" method="post">
                     <div class="login_username_container">
                         <div class="login_username">
                             <p>Username</p>
                         </div>
                         <div class="login_username_input">
-                            <input type="text" id="username" name="username" placeholder="enter your username" maxlength="10" minlength="4" required>
+                            <input type="text" id="sign_up_username" name="sign_up_username" placeholder="enter your username" maxlength="10" minlength="4" required>
                         </div>
                     </div>
 
@@ -51,20 +51,20 @@
                             <p>Password</p>
                         </div>
                         <div class="login_password_input">
-                            <input type="text" id="password" name="password" placeholder="enter your password" maxlength="10" minlength="4" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*" 
+                            <input type="text" id="sign_up_password" name="sign_up_password" placeholder="enter your password" maxlength="10" minlength="4" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*" 
                             title="大文字、小文字、数字をそれぞれ含む4文字以上10文字以下のパスワードを入力してください。" required>
                         </div>
                     </div>
 
                     <div class="login_submit">
-                        <input type="submit" value="Login">
+                        <input type="submit" value="Sign up">
                     </div>
                 </form>
 
             </div>
 
             <div class="login_forgot">
-                <a href="{{url_for('login_f')}}">パスワードを忘れた方はこちら</a>
+                <a href="{{url_for('to_login')}}">ログインはこちらから</a>
             </div>
 
         </div>

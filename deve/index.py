@@ -111,6 +111,13 @@ def chat5():
 
 #     return render_template('membership.html')
 
+# 　パスワードリセット
+# @app.route('/reset_pass', methods=["GET","POST"])
+# def reset_pass():
+#     if request.method == "POST":
+#         username = request.form.get('username')
+#         password = request.form.get('password')
+
 # トップ
 @app.route("/")
 def index():

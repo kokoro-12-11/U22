@@ -106,9 +106,9 @@ def membership():
         connection.commit()
         cursor.close()
         connection.close()
-
+        flash('＊＊＊ユーザを登録しました。＊＊＊', 'danger')
         return redirect('/to_login')
-
+    flash('＊＊＊登録ができませんでした。＊＊＊', 'danger')
     return render_template('membership.html')
 
 #  パスワードリセット

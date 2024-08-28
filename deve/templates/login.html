@@ -23,7 +23,7 @@
                 <p>Login</p>
             </div>
 
-            <!-- Flash messages -->
+            <!-- Flash  -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     <ul class="flashes">
@@ -36,7 +36,7 @@
 
             <div class="login_form">
 
-                <form id="login_form" action="/to_login" method="post">
+                <form id="login_form" action="/login" method="POST">
                     <div class="login_username_container">
                         <div class="login_username">
                             <p>Username</p>

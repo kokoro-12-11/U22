@@ -22,9 +22,8 @@
             <div class="login_login">
                 <p>Reset</p>
             </div>
-
-            <!-- Flash messages -->
-            <!-- {% with messages = get_flashed_messages(with_categories=true) %}
+            <!-- Flash  -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     <ul class="flashes">
                         {% for category, message in messages %}
@@ -32,11 +31,11 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
-            {% endwith %} -->
+            {% endwith %}
 
             <div class="login_form">
 
-                <form id="sign_up" action="/login_f" method="post">
+                <form id="sign_up" action="/reset_pass" method="post">
                     <div class="login_username_container">
                         <div class="login_username">
                             <p>Username</p>

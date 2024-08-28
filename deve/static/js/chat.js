@@ -53,10 +53,39 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
             .then(response => response.json())
             .then(data => {
                 const outputText = document.querySelector('.outputText');
-                outputText.innerHTML = data.ai_response.split('\n').map((line, index) => {
+    
+                // AIからの返答を改行ごとに分割し、配列として取得
+                const responseLines = data.ai_response.split('\n');
+            
+                // 1行目と最終行を削除
+                const editResponseLine = responseLines.slice(1, -1);
+            
+                // 削除後の行を再結合してHTMLに表示
+                outputText.innerHTML = editResponseLine.map((line, index) => {
                     let lineNum = (index + 1).toString().padStart(2, '0');
                     return `${lineNum}| ${line}<br>`;
                 }).join('');
+            
+                // ダウンロードボタンのクリックイベントを設定
+                const downloadBtn = document.getElementById('download-btn');
+                downloadBtn.onclick = () => {
+                    const aiResponseText = data.ai_response; // AIからの返答を取得
+                    if (aiResponseText) {
+                        // AIからの返答を改行ごとに分割し、配列として取得
+                        const responseLines = aiResponseText.split('\n');
+                        // 1行目と最終行を削除
+                        const editResponseLine = responseLines.slice(1, -1);
+                        // 削除後の行を再結合してテキストとして準備
+                        const editedResponseText = editResponseLine.join('\n');
+                        const blob = new Blob([editedResponseText], { type: 'text/plain' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'Parakeet.txt'; // ダウンロードするファイル名
+                        a.click();
+                        URL.revokeObjectURL(url); 
+                    }
+                };
             })
             .catch(error => console.error('Error:', error));
         }

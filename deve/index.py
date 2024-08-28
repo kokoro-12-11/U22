@@ -18,20 +18,20 @@ Google_AI_Key = "AIzaSyB_QPU9Xa5QzDI3LgpAStA7ukDsl_9lBdg"
 Deeple_Key = "b82c6d36-4623-4cdd-99cf-c1f075144a57:fx"
 
 
-# # DBとのコネクションの作成
-# db_config ={
-#     'host':'localhost',
-#     'user':'root',
-#     'password':'P@ssw0rd',
-#     'database':'2024sk',
-# }
-# def get_db_connection():
-#     try:
-#         conn = mysql.connector.connect(**db_config)
-#         return conn
-#     except Error as e:
-#         print(f"Error: {e}")
-#         return None
+# DBとのコネクションの作成
+db_config ={
+    'host':'localhost',
+    'user':'root',
+    'password':'P@ssw0rd',
+    'database':'2024sk',
+}
+def get_db_connection():
+    try:
+        conn = mysql.connector.connect(**db_config)
+        return conn
+    except Error as e:
+        print(f"Error: {e}")
+        return None
 
 
 # welcome
@@ -68,55 +68,74 @@ def chat5():
     return render_template("chat5.html")
 
 
-# # ログイン機能
-# @app.route('/login',methods=['GET','POST'])
-# def login():
-#     if request.method == 'POST':
-#         username = request.form.get('username')
-#         password = request.form.get('password')
+# ログイン機能
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
 
-#         connection = mysql.connector.connect(**db_config)
-#         cursor = connection.cursor(dictionary=True, buffered=True)
-#         cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
-#         user = cursor.fetchone()
-#         cursor.close()
-#         connection.close()
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor(dictionary=True, buffered=True)
+        cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+        user = cursor.fetchone()
+        cursor.close()
+        connection.close()
         
-#         if user and check_password_hash(user['password'], password):
-#             session['username'] = username  # ユーザー名をセッションに保存
-#             return redirect("/")
-#         else:
-#             flash('＊＊＊ログイン失敗。＊＊＊', 'danger')
-#             return redirect("/to_login")
-#     return render_template('login_forgot.html')
+        if user and check_password_hash(user['password'], password):
+            session['username'] = username  # ユーザー名をセッションに保存
+            return redirect("/")
+        else:
+            flash('＊＊＊ログイン失敗。＊＊＊', 'danger')
+            return redirect("/to_login")
+    return render_template('login_forgot.html')
 
 
 
-# # 登録機能
-# @app.route('/membership', methods=['GET', 'POST'])
-# def membership():
-#     if request.method == 'POST':
-#         username = request.form.get('username')
-#         password = request.form.get('password')
-#         hashed_password = generate_password_hash(password)  # パスワードをハッシュ化
+# 登録機能
+@app.route('/membership', methods=['GET', 'POST'])
+def membership():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        hashed_password = generate_password_hash(password)  # パスワードをハッシュ化
 
-#         connection = mysql.connector.connect(**db_config)
-#         cursor = connection.cursor()
-#         cursor.execute("INSERT INTO user (username, password) VALUES (%s, %s)", (username, hashed_password))
-#         connection.commit()
-#         cursor.close()
-#         connection.close()
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor()
+        cursor.execute("INSERT INTO user (username, password) VALUES (%s, %s)", (username, hashed_password))
+        connection.commit()
+        cursor.close()
+        connection.close()
 
-#         return redirect('/to_login')
+        return redirect('/to_login')
 
-#     return render_template('membership.html')
+    return render_template('membership.html')
 
-# 　パスワードリセット
-# @app.route('/reset_pass', methods=["GET","POST"])
-# def reset_pass():
-#     if request.method == "POST":
-#         username = request.form.get('username')
-#         password = request.form.get('password')
+#  パスワードリセット
+@app.route('/reset_pass', methods=['GET','POST'])
+def reset_pass():
+    if request.method == 'POST':
+        username = request.form.get('login_f_username')
+        new_password = request.form.get('login_f_password')
+        hashed_password = generate_password_hash(new_password)
+        connection = mysql.connector.connect(**db_config)    
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+        user = cursor.fetchone()
+        if user:
+            cursor.execute("UPDATE user SET password = %s WHERE username = %s", (hashed_password, username))
+            connection.commit()
+            cursor.close()
+            connection.close()
+            flash('＊＊＊パスワードを再設定しました。＊＊＊', 'danger')
+            return redirect('/to_login')
+        else:
+            flash('ユーザが見つかりませんでした。', 'danger')
+            cursor.close()
+            connection.close()
+            return redirect('/login_f')
+        
+    return redirect('/login_f')
 
 # トップ
 @app.route("/")

@@ -96,7 +96,7 @@ div.HeaderImage figure img{
     width: 80%;
     height: 80%;
 } 
-.outputText{
+.output{
     overflow-y: auto;
     height: 70%;
     padding: 10px;

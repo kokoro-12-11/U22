@@ -34,10 +34,7 @@ def get_db_connection():
         return None
 
 
-# welcome
-@app.route("/wel")
-def wel():
-    return render_template("welcome.html")
+
 # ログインページへ移動
 @app.route("/to_login")
 def to_login():
@@ -53,19 +50,22 @@ def login_f():
 # チャットページ
 @app.route("/chat2")
 def chat2():
-    return render_template("chat2.html")
+    username=session.get("username")
+    return render_template("chat2.html",username=username)
 # チャットページ
 @app.route("/chat3")
 def chat3():
-    return render_template("chat3.html")
+    username=session.get("username")
+    return render_template("chat3.html",username=username)
 # チャットページ
 @app.route("/chat4")
 def chat4():
-    return render_template("chat4.html")
+    username=session.get("username")
+    return render_template("chat4.html",username=username)
 # チャットページ
-@app.route("/chat5")
-def chat5():
-    return render_template("chat5.html")
+# @app.route("/chat5")
+# def chat5():
+#     return render_template("chat5.html")
 
 
 # ログイン機能
@@ -84,7 +84,7 @@ def login():
         
         if user and check_password_hash(user['password'], password):
             session['username'] = username  # ユーザー名をセッションに保存
-            return redirect("/")
+            return redirect("/index")
         else:
             flash('＊＊＊ログイン失敗。＊＊＊', 'danger')
             return redirect("/to_login")
@@ -137,12 +137,15 @@ def reset_pass():
         
     return redirect('/login_f')
 
-# トップ
+# welcome
 @app.route("/")
+def wel():
+    return render_template("welcome.html")
+# トップ
+@app.route("/index")
 def index():
     username=session.get("username")
     return render_template("index.html",username=username)
-
 
 # チャットページ
 @app.route("/chat")

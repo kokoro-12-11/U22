@@ -150,7 +150,8 @@ def index():
 # チャットページ
 @app.route("/chat")
 def chat():
-    return render_template("chat.html")
+    username=session.get("username")
+    return render_template("chat.html",username=username)
 
 
 # 入力音声のテキストを翻訳

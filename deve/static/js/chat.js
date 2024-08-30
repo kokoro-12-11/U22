@@ -53,9 +53,23 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
             .then(response => response.json())
             .then(data => {
                 const outputText = document.querySelector('.outputText');
+
+                // HTMLのコード文字を実体参照に変換
+                const escapeHtml = (text) => {
+                  return text.replace(/[&<>"']/g, (match) => {
+                      const escapeMap = {
+                          '&': '&amp;',
+                          '<': '&lt;',
+                          '>': '&gt;',
+                          '"': '&quot;',
+                          "'": '&#039;'
+                      };
+                      return escapeMap[match];
+                  });
+                };
     
                 // AIからの返答を改行ごとに分割し、配列として取得
-                const responseLines = data.ai_response.split('\n');
+                const responseLines = escapeHtml(data.ai_response).split('\n');
             
                 // 1行目と最終行を削除
                 const editResponseLine = responseLines.slice(1, -1);

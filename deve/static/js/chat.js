@@ -1,19 +1,20 @@
-if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
+document.addEventListener('DOMContentLoaded', () => {
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
 
-    recognition.lang = 'ja-JP';
-    recognition.interimResults = true;
-    recognition.continuous = false;
+        recognition.lang = 'ja-JP';
+        recognition.interimResults = true;
+        recognition.continuous = false;
 
-    const startBtn = document.getElementById('start-btn');
-    const stopBtn = document.getElementById('stop-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    const resultDiv = document.getElementById('result-div');
-    const textInput = document.getElementById('text-input');
-    const sendBtn = document.getElementById('send-btn');
-
-    const pageValue = document.body.getAttribute('data-page') || '1';
+        const startBtn = document.getElementById('start-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const resultDiv = document.getElementById('result-div');
+        const textInput = document.getElementById('text-input');
+        const sendBtn = document.getElementById('send-btn');
+        //ページデータの挿入
+        const pageValue = document.getElementById('page-data').value;
 
     let finalTranscript = '';
 
@@ -85,6 +86,27 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
                 downloadBtn.onclick = () => {
                     const aiResponseText = data.ai_response; // AIからの返答を取得
                     if (aiResponseText) {
+                        const pageData = document.getElementById('page-data').value; 
+                        // data-pageの値でファイル拡張子変更
+                        let fileExtension = 'txt'; // デフォルトは.txt
+                        switch (pageData) {
+                            case '1':
+                                fileExtension = 'html';
+                                break;
+                            case '2':
+                                fileExtension = 'css';
+                                break;
+                            case '3':
+                                fileExtension = 'js';
+                                break;
+                            case '4':
+                                fileExtension = 'py';
+                                break;
+                            default:
+                                fileExtension = 'txt';
+                                break;
+                        }
+                    
                         // AIからの返答を改行ごとに分割し、配列として取得
                         const responseLines = aiResponseText.split('\n');
                         // 1行目と最終行を削除
@@ -95,7 +117,7 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
                         const url = URL.createObjectURL(blob);
                         const a = document.createElement('a');
                         a.href = url;
-                        a.download = 'Parakeet.txt'; // ダウンロードするファイル名
+                        a.download = `Parakeet.${fileExtension}`; //拡張子配置
                         a.click();
                         URL.revokeObjectURL(url); 
                     }
@@ -112,4 +134,4 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
     };
 } else {
     console.error("SpeechRecognition is not supported in this browser.");
-}
+}})
